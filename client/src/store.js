@@ -1,8 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { gql } from "apollo-boost";
 import { defaultClient as apolloClient } from "./main";
+
+import { GET_POSTS } from "./queries";
 
 Vue.use(Vuex);
 
@@ -24,15 +25,7 @@ export default new Vuex.Store({
       commit("setLoading", true);
       apolloClient
         .query({
-          query: gql`
-            query {
-              getPosts {
-                _id
-                title
-                imageUrl
-              }
-            }
-          `
+          query: GET_POSTS
         })
         .then(({ data }) => {
           commit("setPosts", data.getPosts);
