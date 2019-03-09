@@ -23,7 +23,8 @@ export default new Vuex.Store({
     },
     setLoading: (state, payload) => {
       state.loading = payload;
-    }
+    },
+    clearUser: state => (state.user = null)
   },
   actions: {
     getCurrentUser: ({ commit }) => {
@@ -59,6 +60,8 @@ export default new Vuex.Store({
         });
     },
     signinUser: ({ commit }, payload) => {
+      // clear token to prevent errors (if malformed)
+      localStorage.setItem("token", "");
       apolloClient
         .mutate({
           mutation: SIGNIN_USER,
@@ -72,6 +75,16 @@ export default new Vuex.Store({
         .catch(err => {
           console.error(err);
         });
+    },
+    signoutUser: async ({ commit }) => {
+      // clear user in state
+      commit("clearUser");
+      // remove token in localStorage
+      localStorage.setItem("token", "");
+      // end session
+      await apolloClient.resetStore();
+      // redirect home - kick users out of private pages (i.e. profile)
+      router.push("/");
     }
   },
   getters: {
