@@ -43,6 +43,12 @@ export const defaultClient = new ApolloClient({
     if (graphQLErrors) {
       for (let err of graphQLErrors) {
         console.dir(err);
+        if (err.name === "AuthenticationError") {
+          // set auth error in state (to show in snackbar)
+          store.commit("setAuthError", err);
+          // signout user (to clear token)
+          store.dispatch("signoutUser");
+        }
       }
     }
   }
