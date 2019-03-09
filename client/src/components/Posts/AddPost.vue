@@ -38,7 +38,7 @@
           <!-- Categories Select -->
           <v-layout row>
             <v-flex xs12>
-              <v-select v-model="categories" :rules="categoriesRules" :items="['Art', 'Education', 'Travel', 'Photography', 'Technology']" multiple label="Categories"></v-select>
+              <v-select v-model="categories" :rules="categoriesRules" :items="['Art', 'Education', 'Food', 'Furniture', 'Travel', 'Photography', 'Technology']" multiple label="Categories"></v-select>
             </v-flex>
           </v-layout>
 
@@ -94,6 +94,24 @@ export default {
           desc.length < 200 || "Description must have less than 200 characters"
       ]
     };
+  },
+  computed: {
+    ...mapGetters(["loading", "user"])
+  },
+  methods: {
+    handleAddPost() {
+      if (this.$refs.form.validate()) {
+        // add post action
+        this.$store.dispatch("addPost", {
+          title: this.title,
+          imageUrl: this.imageUrl,
+          categories: this.categories,
+          description: this.description,
+          creatorId: this.user._id
+        });
+        this.$router.push("/");
+      }
+    }
   }
 };
 </script>
