@@ -30,7 +30,7 @@
 
                 <v-list-tile-content>
                   <v-list-tile-title class="text--primary">{{post.createdBy.username}}</v-list-tile-title>
-                  <v-list-tile-subtitle class="font-weight-thin">Added {{post.createdDate}}</v-list-tile-subtitle>
+                  <v-list-tile-sub-title class="font-weight-thin">Added {{post.createdDate}}</v-list-tile-sub-title>
                 </v-list-tile-content>
 
                 <v-list-tile-action>

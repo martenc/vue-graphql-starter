@@ -104,6 +104,25 @@ export const ADD_POST = gql`
   }
 `;
 
+export const ADD_POST_MESSAGE = gql`
+  mutation($messageBody: String!, $userId: ID!, $postId: ID!) {
+    addPostMessage(
+      messageBody: $messageBody
+      userId: $userId
+      postId: $postId
+    ) {
+      _id
+      messageBody
+      messageDate
+      messageUser {
+        _id
+        username
+        avatar
+      }
+    }
+  }
+`;
+
 /* User Mutations */
 export const SIGNIN_USER = gql`
   mutation($username: String!, $password: String!) {
