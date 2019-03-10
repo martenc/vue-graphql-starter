@@ -66,6 +66,20 @@ export const GET_CURRENT_USER = gql`
   }
 `;
 
+export const GET_USER_POSTS = gql`
+  query($userId: ID!) {
+    getUserPosts(userId: $userId) {
+      _id
+      title
+      imageUrl
+      description
+      categories
+      createdDate
+      likes
+    }
+  }
+`;
+
 export const INFINITE_SCROLL_POSTS = gql`
   query($pageNum: Int!, $pageSize: Int!) {
     infiniteScrollPosts(pageNum: $pageNum, pageSize: $pageSize) {
