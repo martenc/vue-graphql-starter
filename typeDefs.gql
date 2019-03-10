@@ -39,6 +39,7 @@ type PostsPage {
 type Query {
   getCurrentUser: User
   getPosts: [Post]
+  getPost(postId: ID!): Post!
   infiniteScrollPosts(pageNum: Int!, pageSize: Int!): PostsPage
 }
 
@@ -50,6 +51,7 @@ type Mutation {
     description: String!
     creatorId: ID!
   ): Post!
+  addPostMessage(messageBody: String!, userId: ID!, postId: ID!): Message!
   signinUser(username: String!, password: String!): Token
   signupUser(username: String!, email: String!, password: String!): Token
 }
