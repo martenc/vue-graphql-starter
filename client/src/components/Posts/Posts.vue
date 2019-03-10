@@ -1,11 +1,28 @@
 <template>
-  <v-container fluid grid-list-xl>
+  <v-container
+    fluid
+    grid-list-xl
+  >
 
     <!-- Post Cards -->
-    <v-layout row wrap v-if="infiniteScrollPosts">
-      <v-flex xs12 sm6 v-for="post in infiniteScrollPosts.posts" :key="post._id">
+    <v-layout
+      row
+      wrap
+      v-if="infiniteScrollPosts"
+    >
+      <v-flex
+        xs12
+        sm6
+        v-for="post in infiniteScrollPosts.posts"
+        :key="post._id"
+      >
         <v-card hover>
-          <v-card-media @click.native="goToPost(post._id)" :src="post.imageUrl" height="30vh" lazy></v-card-media>
+          <v-card-media
+            @click.native="goToPost(post._id)"
+            :src="post.imageUrl"
+            height="30vh"
+            lazy
+          ></v-card-media>
 
           <v-card-actions>
             <v-card-title primary>
@@ -15,14 +32,20 @@
               </div>
             </v-card-title>
             <v-spacer></v-spacer>
-            <v-btn @click="showPostCreator = !showPostCreator" icon>
+            <v-btn
+              @click="showPostCreator = !showPostCreator"
+              icon
+            >
               <v-icon>{{`keyboard_arrow_${showPostCreator ? 'up' : 'down'}`}}</v-icon>
             </v-btn>
           </v-card-actions>
 
           <!-- Post Creator Tile -->
           <v-slide-y-transition>
-            <v-card-text v-show="showPostCreator" class="grey lighten-4">
+            <v-card-text
+              v-show="showPostCreator"
+              class="grey lighten-4"
+            >
               <v-list-tile avatar>
                 <v-list-tile-avatar>
                   <img :src="post.createdBy.avatar">
@@ -34,7 +57,10 @@
                 </v-list-tile-content>
 
                 <v-list-tile-action>
-                  <v-btn icon ripple>
+                  <v-btn
+                    icon
+                    ripple
+                  >
                     <v-icon color="grey lighten-1">info</v-icon>
                   </v-btn>
                 </v-list-tile-action>
@@ -47,10 +73,19 @@
     </v-layout>
 
     <!-- Fetch More Button -->
-    <v-layout v-if="showMoreEnabled" column>
+    <v-layout
+      v-if="showMoreEnabled"
+      column
+    >
       <v-flex xs12>
-        <v-layout justify-center row>
-          <v-btn color="info" @click="showMorePosts">Fetch More</v-btn>
+        <v-layout
+          justify-center
+          row
+        >
+          <v-btn
+            color="info"
+            @click="showMorePosts"
+          >Fetch More</v-btn>
         </v-layout>
       </v-flex>
     </v-layout>
@@ -69,7 +104,7 @@ export default {
   data() {
     return {
       pageNum: 1,
-      showMoreEnabled: true,
+      // showMoreEnabled: true,
       showPostCreator: false
     };
   },
@@ -80,6 +115,11 @@ export default {
         pageNum: 1,
         pageSize
       }
+    }
+  },
+  computed: {
+    showMoreEnabled() {
+      return this.infiniteScrollPosts && this.infiniteScrollPosts.hasMore;
     }
   },
   methods: {
@@ -104,7 +144,7 @@ export default {
 
           const newPosts = fetchMoreResult.infiniteScrollPosts.posts;
           const hasMore = fetchMoreResult.infiniteScrollPosts.hasMore;
-          this.showMoreEnabled = hasMore;
+          // this.showMoreEnabled = hasMore;
 
           return {
             infiniteScrollPosts: {
