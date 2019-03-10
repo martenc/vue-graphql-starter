@@ -130,6 +130,38 @@ export const ADD_POST = gql`
   }
 `;
 
+export const UPDATE_USER_POST = gql`
+  mutation(
+    $postId: ID!
+    $userId: ID!
+    $title: String!
+    $imageUrl: String!
+    $categories: [String]!
+    $description: String!
+  ) {
+    updateUserPost(
+      postId: $postId
+      userId: $userId
+      title: $title
+      imageUrl: $imageUrl
+      categories: $categories
+      description: $description
+    ) {
+      _id
+      title
+      imageUrl
+      description
+      categories
+      createdDate
+      likes
+      createdBy {
+        _id
+        avatar
+      }
+    }
+  }
+`;
+
 export const ADD_POST_MESSAGE = gql`
   mutation($messageBody: String!, $userId: ID!, $postId: ID!) {
     addPostMessage(
